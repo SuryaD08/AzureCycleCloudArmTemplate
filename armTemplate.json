@@ -6,6 +6,32 @@
             "type": "String",
             "defaultValue": "westeurope"
         },
+        "tenantId": {
+            "type": "String",
+            "defaultValue": "f5e30284-10cf-4876-8470-617b0d606c78"
+        },
+        "applicationId": {
+            "type": "String",
+            "defaultValue": "441e188e-b3ab-47f3-b1e1-3efb827b4678"
+        },
+        "applicationSecret": {
+            "type": "String",
+            "defaultValue": "a8s8Q~z2itlTLRDdU7BFJq0x44goYMtiXo0~ua2y"
+        },
+        "azureSovereignCloud": {
+            "maxLength": 36,
+            "metadata": {
+                "description": "Azure National Cloud to use."
+            },
+            "defaultValue": "public",
+            "allowedValues": [
+                "public",
+                "china",
+                "germany",
+                "usgov"
+            ],
+            "type": "String"
+        },
         "networkInterfaceName": {
             "type": "String",
             "defaultValue": "ccportal-ni"
@@ -157,6 +183,14 @@
         "adminPassword": {
             "type": "SecureString",
             "defaultValue": "Terawe@12345"
+        },
+        "ccScriptFilePath": {
+            "type": "String",
+            "defaultValue": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D"
+        },
+        "ccScriptFileName": {
+        "type": "String",
+        "defaultValue": "initcc.sh"
         }
     },
     "variables": {
@@ -308,6 +342,36 @@
                     }
                 }
             }
+        },
+        {
+            "name": "ccportal.custom-script-linux",
+            "apiVersion": "2015-01-01",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "https://catalogartifact.azureedge.net/publicartifacts/microsoft.custom-script-linux-arm-2.0.57/MainTemplate.json"
+                },
+                "parameters": {
+                    "fileUris": {
+                        "value": [
+                            "[parameters('ccScriptFilePath')]"
+                        ]
+                    },
+                    "commandToExecute": {
+                        "value": "[concat('sh ', parameters('ccScriptFileName'), ' azureSovereignCloud=\"', parameters('azureSovereignCloud'), '\" ', 'tenantId=\"', parameters('tenantId'), '\" ', 'applicationId=\"', parameters('applicationId'), '\" ', 'applicationSecret=\"', parameters('applicationSecret'), '\" ', 'username=\"', parameters('adminUsername'), '\" ', 'hostname=\"', parameters('virtualMachineName'), '\" ', 'password=\"', parameters('adminPassword'), '\"')]"
+                    },
+                    "vmName": {
+                        "value": "[parameters('virtualMachineName')]"
+                    },
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ]
         }
     ],
     "outputs": {
