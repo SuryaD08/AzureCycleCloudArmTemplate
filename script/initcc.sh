@@ -13,7 +13,7 @@ done
 yum install -y git
 
 cd /home/$username
-git clone https://github.com/nandakumar-terawe/cyclecloud
+git clone https://github.com/nandakumar-terawe/AzureCycleCloudArmTemplate
 
-cd cyclecloud
+cd AzureCycleCloudArmTemplate/script
 python ccloud_install.py --azureSovereignCloud $azureSovereignCloud --tenantId $tenantId --applicationId $applicationId --applicationSecret $applicationSecret --username $username --hostname $hostname --password $password
