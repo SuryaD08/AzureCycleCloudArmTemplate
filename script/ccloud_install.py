@@ -252,6 +252,8 @@ def main():
     # FQDN is assumed to be in the form: hostname.location.cloudapp.azure.com
     # fqdn = hostname + "." + location + ".cloudapp.azure.com"
     vm_metadata = get_vm_metadata()
+    # waiting for cycle server start
+    sleep(20)
     fqdn = args.hostname + "." + vm_metadata["compute"]["location"] + ".cloudapp.azure.com"
     letsEncrypt(fqdn)
     account_and_cli_setup(vm_metadata, args.tenantId, args.applicationId,
