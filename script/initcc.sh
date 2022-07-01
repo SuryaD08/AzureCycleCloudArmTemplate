@@ -16,4 +16,4 @@ cd /home/$username
 git clone https://github.com/nandakumar-terawe/AzureCycleCloudArmTemplate
 
 cd AzureCycleCloudArmTemplate/script
-python ccloud_install.py --azureSovereignCloud $azureSovereignCloud --tenantId $tenantId --applicationId $applicationId --applicationSecret $applicationSecret --username $username --hostname $hostname --password $password --acceptTerms true
+python ccloud_install.py --azureSovereignCloud $azureSovereignCloud --tenantId $tenantId --applicationId $applicationId --applicationSecret $applicationSecret --username $username --hostname $hostname --password $password --acceptTerms
