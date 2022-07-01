@@ -153,6 +153,9 @@
         },
         "ccScriptFileName": {
             "value": "initcc.sh"
+        },
+        "excuteScript":{
+            "value": ""
         }
     }
 }
