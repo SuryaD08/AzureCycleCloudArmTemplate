@@ -191,9 +191,6 @@
         "ccScriptFileName": {
         "type": "String",
         "defaultValue": "initcc.sh"
-        },
-        "excuteScript":{
-            "type": "String"
         }
     },
     "variables": {
@@ -384,7 +381,7 @@
         },
         "excuteScript": {
             "type": "String",
-            "value": "[concat('cd /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script && python ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('username'), ' --hostname ', parameters('hostname'), ' --password ', parameters('password'), ' --acceptTerms')]"
+            "value": "[concat('cd /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script && python ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', parameters('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
         }
     }
 }
