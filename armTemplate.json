@@ -381,7 +381,7 @@
         },
         "excuteScript": {
             "type": "String",
-            "value": "[concat('cd /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script && python ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', parameters('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
+            "value": "[concat('sudo python /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script/ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', parameters('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
         }
     }
 }
