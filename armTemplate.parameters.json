@@ -1,158 +1,39 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "location": {
-            "value": "westeurope"
-        },
-        "tenantId": {
-            "value": "f5e30284-10cf-4876-8470-617b0d606c78"
-        },
-        "applicationId": {
-            "value": "441e188e-b3ab-47f3-b1e1-3efb827b4678"
-        },
-        "applicationSecret": {
-            "value": "a8s8Q~z2itlTLRDdU7BFJq0x44goYMtiXo0~ua2y"
-        },
-        "azureSovereignCloud": {
-            "value": "public"
-        },
-        "networkInterfaceName": {
-            "value": "ccportal-ni"
-        },
-        "networkSecurityGroupName": {
-            "value": "ccportal-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "value": [
-                {
-                    "name": "HTTPS",
-                    "properties": {
-                        "priority": 1010,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "443"
-                    }
-                },
-                {
-                    "name": "HTTP",
-                    "properties": {
-                        "priority": 1020,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "80"
-                    }
-                },
-                {
-                    "name": "default-allow-ssh",
-                    "properties": {
-                        "priority": 1030,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "22"
-                    }
-                }
-            ]
-        },
-        "subnetName": {
-            "value": "default"
-        },
-        "virtualNetworkName": {
-            "value": "ccportal-vnet"
-        },
-        "addressPrefixes": {
-            "value": [
-                "10.8.0.0/16"
-            ]
-        },
-        "subnets": {
-            "value": [
-                {
-                    "name": "default",
-                    "properties": {
-                        "addressPrefix": "10.8.0.0/24"
-                    }
-                }
-            ]
-        },
-        "publicIpAddressName": {
-            "value": "ccportal-ip"
-        },
-        "publicIpAddressType": {
-            "value": "Dynamic"
-        },
-        "publicIpAddressSku": {
-            "value": "Basic"
-        },
-        "pipDeleteOption": {
-            "value": "Detach"
-        },
-        "virtualMachineName": {
-            "value": "ccportal"
-        },
-        "virtualMachineComputerName": {
-            "value": "ccportal"
-        },
-        "virtualMachineRG": {
-            "value": "ccportal"
-        },
-        "osDiskType": {
-            "value": "StandardSSD_LRS"
-        },
-        "osDiskDeleteOption": {
-            "value": "Delete"
-        },
-        "dataDisks": {
-            "value": [
-                {
-                    "lun": 0,
-                    "createOption": "fromImage",
-                    "deleteOption": "Detach",
-                    "caching": "None",
-                    "writeAcceleratorEnabled": false,
-                    "id": null,
-                    "name": null,
-                    "storageAccountType": "StandardSSD_LRS",
-                    "diskSizeGB": null,
-                    "diskEncryptionSet": null
-                }
-            ]
-        },
-        "virtualMachineSize": {
-            "value": "Basic_A2"
-        },
-        "nicDeleteOption": {
-            "value": "Detach"
-        },
-        "adminUsername": {
-            "value": "ccportaladmin"
-        },
-        "adminPassword": {
-            "value": "Terawe@12345"
-        },
-        "ccScriptFilePath": {
-            "value": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D"
-        },
-        "ccScriptFileName": {
-            "value": "initcc.sh"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "westeurope"
+    },
+    "tenantId": {
+      "value": null
+    },
+    "applicationId": {
+      "value": null
+    },
+    "applicationSecret": {
+      "value": null
+    },
+    "azureSovereignCloud": {
+      "value": "public"
+    },
+    "prefix": {
+      "value": null
+    },
+    "virtualMachineSize": {
+      "value": null
+    },
+    "adminUsername": {
+      "value": null
+    },
+    "adminPassword": {
+      "value": null
+    },
+    "ccScriptFilePath": {
+      "value": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D"
+    },
+    "ccScriptFileName": {
+      "value": "initcc.sh"
     }
+  }
 }
