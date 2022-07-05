@@ -3,26 +3,35 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
+            "defaultValue": "westeurope",
+            "allowedValues": [
+                "westeurope",
+                "eastus",
+                "eastus2",
+                "westus",
+                "centralus"
+            ],
             "type": "String",
-            "defaultValue": "westeurope"
+            "metadata": {
+                "description": "The type of replication to use for the Location."
+            }
         },
         "tenantId": {
-            "type": "String",
-            "defaultValue": "f5e30284-10cf-4876-8470-617b0d606c78"
+            "type": "String"
         },
         "applicationId": {
             "type": "String",
-            "defaultValue": "441e188e-b3ab-47f3-b1e1-3efb827b4678"
+            "metadata": {
+                "description": "The type of applicationId to use for this application."
+            }
         },
         "applicationSecret": {
             "type": "String",
-            "defaultValue": "a8s8Q~z2itlTLRDdU7BFJq0x44goYMtiXo0~ua2y"
+            "metadata": {
+                "description": "The type of applicationSecret to use for this application."
+            }
         },
         "azureSovereignCloud": {
-            "maxLength": 36,
-            "metadata": {
-                "description": "Azure National Cloud to use."
-            },
             "defaultValue": "public",
             "allowedValues": [
                 "public",
@@ -30,185 +39,54 @@
                 "germany",
                 "usgov"
             ],
+            "maxLength": 36,
+            "type": "String",
+            "metadata": {
+                "description": "Azure National Cloud to use."
+            }
+        },
+        "prefix": {
+            "maxLength": 12,
             "type": "String"
         },
-        "networkInterfaceName": {
-            "type": "String",
-            "defaultValue": "ccportal-ni"
-        },
-        "networkSecurityGroupName": {
-            "type": "String",
-            "defaultValue": "ccportal-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "type": "Array",
-            "defaultValue": [
-                {
-                    "name": "HTTPS",
-                    "properties": {
-                        "priority": 1010,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "443"
-                    }
-                },
-                {
-                    "name": "HTTP",
-                    "properties": {
-                        "priority": 1020,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "80"
-                    }
-                },
-                {
-                    "name": "default-allow-ssh",
-                    "properties": {
-                        "priority": 1030,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceApplicationSecurityGroups": [],
-                        "destinationApplicationSecurityGroups": [],
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "22"
-                    }
-                }
-            ]
-        },
-        "subnetName": {
-            "type": "String",
-            "defaultValue": "default"
-        },
-        "virtualNetworkName": {
-            "type": "String",
-            "defaultValue": "ccportal-vnet"
-        },
-        "addressPrefixes": {
-            "type": "Array",
-            "defaultValue": [
-                "10.8.0.0/16"
-            ]
-        },
-        "subnets": {
-            "type": "Array",
-            "defaultValue": [
-                {
-                    "name": "default",
-                    "properties": {
-                        "addressPrefix": "10.8.0.0/24"
-                    }
-                }
-            ]
-        },
-        "publicIpAddressName": {
-            "type": "String",
-            "defaultValue": "ccportal-ip"
-        },
-        "publicIpAddressType": {
-            "type": "String",
-            "defaultValue": "Dynamic"
-        },
-        "publicIpAddressSku": {
-            "type": "String",
-            "defaultValue": "Basic"
-        },
-        "pipDeleteOption": {
-            "type": "String",
-            "defaultValue": "Detach"
-        },
-        "virtualMachineName": {
-            "type": "String",
-            "defaultValue": "ccportal"
-        },
-        "virtualMachineComputerName": {
-            "type": "String",
-            "defaultValue": "ccportal"
-        },
-        "virtualMachineRG": {
-            "type": "String",
-            "defaultValue": "ccportal"
-        },
-        "osDiskType": {
-            "type": "String",
-            "defaultValue": "StandardSSD_LRS"
-        },
-        "osDiskDeleteOption": {
-            "type": "String",
-            "defaultValue": "Delete"
-        },
-        "dataDisks": {
-            "type": "Array",
-            "defaultValue": [
-                {
-                    "lun": 0,
-                    "createOption": "fromImage",
-                    "deleteOption": "Detach",
-                    "caching": "None",
-                    "writeAcceleratorEnabled": false,
-                    "id": null,
-                    "name": null,
-                    "storageAccountType": "StandardSSD_LRS",
-                    "diskSizeGB": null,
-                    "diskEncryptionSet": null
-                }
-            ]
-        },
         "virtualMachineSize": {
-            "type": "String",
-            "defaultValue": "Basic_A2"
-        },
-        "nicDeleteOption": {
-            "type": "String",
-            "defaultValue": "Detach"
+            "type": "String"
         },
         "adminUsername": {
-            "type": "String",
-            "defaultValue": "ccportaladmin"
+            "type": "String"
         },
         "adminPassword": {
-            "type": "SecureString",
-            "defaultValue": "Terawe@12345"
+            "type": "SecureString"
         },
         "ccScriptFilePath": {
-            "type": "String",
-            "defaultValue": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D"
+            "defaultValue": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D",
+            "type": "String"
         },
         "ccScriptFileName": {
-        "type": "String",
-        "defaultValue": "initcc.sh"
+            "defaultValue": "initcc.sh",
+            "type": "String"
         }
     },
     "variables": {
-        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-        "vnetName": "[parameters('virtualNetworkName')]",
-        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+        "networkInterfacesName": "[concat(parameters('prefix'), '-ni')]",
+        "networkSecurityGroupName": "[concat(parameters('prefix'), '-nsg')]",
+        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "virtualNetworkName": "[concat(parameters('prefix'), '-vnet')]",
+        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/default')]",
+        "publicIpAddressName": "[concat(parameters('prefix'), '-ip')]",
+        "virtualMachineName": "[concat(parameters('prefix'), '-vm')]"
     },
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2021-03-01",
-            "name": "[parameters('networkInterfaceName')]",
+            "name": "[variables('networkInterfacesName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -220,9 +98,9 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]",
+                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', variables('publicIpAddressName'))]",
                                 "properties": {
-                                    "deleteOption": "[parameters('pipDeleteOption')]"
+                                    "deleteOption": "Detach"
                                 }
                             }
                         }
@@ -236,43 +114,98 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-02-01",
-            "name": "[parameters('networkSecurityGroupName')]",
+            "name": "[variables('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                "securityRules": "[parameters('networkSecurityGroupRules')]"
+                "securityRules": [
+                    {
+                        "name": "HTTPS",
+                        "properties": {
+                            "priority": 1010,
+                            "protocol": "TCP",
+                            "access": "Allow",
+                            "direction": "Inbound",
+                            "sourceApplicationSecurityGroups": [],
+                            "destinationApplicationSecurityGroups": [],
+                            "sourceAddressPrefix": "*",
+                            "sourcePortRange": "*",
+                            "destinationAddressPrefix": "*",
+                            "destinationPortRange": "443"
+                        }
+                    },
+                    {
+                        "name": "HTTP",
+                        "properties": {
+                            "priority": 1020,
+                            "protocol": "TCP",
+                            "access": "Allow",
+                            "direction": "Inbound",
+                            "sourceApplicationSecurityGroups": [],
+                            "destinationApplicationSecurityGroups": [],
+                            "sourceAddressPrefix": "*",
+                            "sourcePortRange": "*",
+                            "destinationAddressPrefix": "*",
+                            "destinationPortRange": "80"
+                        }
+                    },
+                    {
+                        "name": "default-allow-ssh",
+                        "properties": {
+                            "priority": 1030,
+                            "protocol": "TCP",
+                            "access": "Allow",
+                            "direction": "Inbound",
+                            "sourceApplicationSecurityGroups": [],
+                            "destinationApplicationSecurityGroups": [],
+                            "sourceAddressPrefix": "*",
+                            "sourcePortRange": "*",
+                            "destinationAddressPrefix": "*",
+                            "destinationPortRange": "22"
+                        }
+                    }
+                ]
             }
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2020-11-01",
-            "name": "[parameters('virtualNetworkName')]",
+            "name": "[variables('virtualNetworkName')]",
             "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
-                    "addressPrefixes": "[parameters('addressPrefixes')]"
+                    "addressPrefixes": [
+                        "10.8.0.0/16"
+                    ]
                 },
-                "subnets": "[parameters('subnets')]"
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.8.0.0/24"
+                        }
+                    }
+                ]
             }
         },
         {
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2020-08-01",
-            "name": "[parameters('publicIpAddressName')]",
+            "name": "[variables('publicIpAddressName')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "[parameters('publicIpAddressSku')]"
+                "name": "Basic"
             },
             "properties": {
-                "publicIpAllocationMethod": "[parameters('publicIpAddressType')]"
+                "publicIpAllocationMethod": "Dynamic"
             }
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2021-07-01",
-            "name": "[parameters('virtualMachineName')]",
+            "name": "[variables('virtualMachineName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfacesName'))]"
             ],
             "plan": {
                 "name": "cyclecloud8",
@@ -287,9 +220,9 @@
                     "osDisk": {
                         "createOption": "fromImage",
                         "managedDisk": {
-                            "storageAccountType": "[parameters('osDiskType')]"
+                            "storageAccountType": "StandardSSD_LRS"
                         },
-                        "deleteOption": "[parameters('osDiskDeleteOption')]"
+                        "deleteOption": "Delete"
                     },
                     "imageReference": {
                         "publisher": "azurecyclecloud",
@@ -300,18 +233,18 @@
                     "copy": [
                         {
                             "name": "dataDisks",
-                            "count": "[length(parameters('dataDisks'))]",
+                            "count": 1,
                             "input": {
-                                "lun": "[parameters('dataDisks')[copyIndex('dataDisks')].lun]",
-                                "createOption": "[parameters('dataDisks')[copyIndex('dataDisks')].createOption]",
-                                "caching": "[parameters('dataDisks')[copyIndex('dataDisks')].caching]",
-                                "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
+                                "lun": 0,
+                                "createOption": "fromImage",
+                                "caching": "None",
+                                "diskSizeGB": null,
                                 "managedDisk": {
-                                    "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
-                                    "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
+                                    "id": null,
+                                    "storageAccountType": "StandardSSD_LRS"
                                 },
-                                "deleteOption": "[parameters('dataDisks')[copyIndex('dataDisks')].deleteOption]",
-                                "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]"
+                                "deleteOption": "Detach",
+                                "writeAcceleratorEnabled": false
                             }
                         }
                     ]
@@ -319,15 +252,15 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]",
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfacesName'))]",
                             "properties": {
-                                "deleteOption": "[parameters('nicDeleteOption')]"
+                                "deleteOption": "Detach"
                             }
                         }
                     ]
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachineComputerName')]",
+                    "computerName": "[variables('virtualMachineName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]",
                     "linuxConfiguration": {
@@ -344,9 +277,12 @@
             }
         },
         {
-            "name": "ccportal.custom-script-linux",
-            "apiVersion": "2015-01-01",
             "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "name": "ccportal.custom-script-linux",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachineName'))]"
+            ],
             "properties": {
                 "mode": "incremental",
                 "templateLink": {
@@ -359,19 +295,16 @@
                         ]
                     },
                     "commandToExecute": {
-                        "value": "[concat('sh ', parameters('ccScriptFileName'), ' azureSovereignCloud=\"', parameters('azureSovereignCloud'), '\" ', 'tenantId=\"', parameters('tenantId'), '\" ', 'applicationId=\"', parameters('applicationId'), '\" ', 'applicationSecret=\"', parameters('applicationSecret'), '\" ', 'username=\"', parameters('adminUsername'), '\" ', 'hostname=\"', parameters('virtualMachineName'), '\" ', 'password=\"', parameters('adminPassword'), '\"')]"
+                        "value": "[concat('sh ', parameters('ccScriptFileName'), ' azureSovereignCloud=\"', parameters('azureSovereignCloud'), '\" ', 'tenantId=\"', parameters('tenantId'), '\" ', 'applicationId=\"', parameters('applicationId'), '\" ', 'applicationSecret=\"', parameters('applicationSecret'), '\" ', 'username=\"', parameters('adminUsername'), '\" ', 'hostname=\"', variables('virtualMachineName'), '\" ', 'password=\"', parameters('adminPassword'), '\"')]"
                     },
                     "vmName": {
-                        "value": "[parameters('virtualMachineName')]"
+                        "value": "[variables('virtualMachineName')]"
                     },
                     "location": {
                         "value": "[parameters('location')]"
                     }
                 }
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-            ]
+            }
         }
     ],
     "outputs": {
@@ -381,7 +314,7 @@
         },
         "excuteScript": {
             "type": "String",
-            "value": "[concat('sudo python /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script/ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', parameters('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
+            "value": "[concat('sudo python /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script/ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', variables('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
         }
     }
 }
