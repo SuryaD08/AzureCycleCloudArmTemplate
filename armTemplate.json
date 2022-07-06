@@ -17,18 +17,21 @@
             }
         },
         "tenantId": {
-            "type": "String"
+            "type": "String",
+             "metadata": {
+                "description": "The Organization directory to use."
+            }
         },
         "applicationId": {
             "type": "String",
             "metadata": {
-                "description": "The type of applicationId to use for this application."
+                "description": "This application should be contributor role in this subscription."
             }
         },
         "applicationSecret": {
             "type": "String",
             "metadata": {
-                "description": "The type of applicationSecret to use for this application."
+                "description": "This applicationSecret should be this application"
             }
         },
         "azureSovereignCloud": {
