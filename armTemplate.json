@@ -62,7 +62,7 @@
             "type": "SecureString"
         },
         "ccScriptFilePath": {
-            "defaultValue": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D",
+            "defaultValue": "https://teraweazstorage.blob.core.windows.net/azstorage/initcc.sh?sp=r&st=2022-07-06T08:04:43Z&se=2040-07-06T16:04:43Z&sv=2021-06-08&sr=b&sig=62p8JWBwOFBnn1sq6%2BnjtBn7SjX6omKw%2BMHvoQApeHg%3D",
             "type": "String"
         },
         "ccScriptFileName": {
@@ -78,13 +78,17 @@
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/default')]",
         "publicIpAddressName": "[concat(parameters('prefix'), '-ip')]",
-        "virtualMachineName": "[concat(parameters('prefix'), '-vm')]"
-    },
+        "virtualMachineName": "[concat(parameters('prefix'), '-vm')]",
+        "uniqueId" : "[newGuid()]",
+        "tagName" : "dlId",
+        "tags" : { "[variables('tagName')]": "[variables('uniqueId')]"}
+   },
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2021-03-01",
             "name": "[variables('networkInterfacesName')]",
+            "tags": "[variables('tags')]",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
@@ -118,6 +122,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-02-01",
             "name": "[variables('networkSecurityGroupName')]",
+            "tags": "[variables('tags')]",
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
@@ -173,6 +178,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2020-11-01",
             "name": "[variables('virtualNetworkName')]",
+            "tags": "[variables('tags')]",
             "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
@@ -194,6 +200,7 @@
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2020-08-01",
             "name": "[variables('publicIpAddressName')]",
+            "tags": "[variables('tags')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "Basic"
@@ -206,6 +213,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2021-07-01",
             "name": "[variables('virtualMachineName')]",
+            "tags": "[variables('tags')]",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfacesName'))]"
@@ -283,6 +291,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "name": "ccportal.custom-script-linux",
+            "tags": "[variables('tags')]",
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachineName'))]"
             ],
@@ -318,6 +327,13 @@
         "excuteScript": {
             "type": "String",
             "value": "[concat('sudo python /home/', parameters('adminUsername'), '/AzureCycleCloudArmTemplate/script/ccloud_install.py --azureSovereignCloud ', parameters('azureSovereignCloud'), ' --tenantId ', parameters('tenantId'), ' --applicationId ', parameters('applicationId'), ' --applicationSecret ', parameters('applicationSecret'), ' --username ', parameters('adminUsername'), ' --hostname ', variables('virtualMachineName'), ' --password ', parameters('adminPassword'), ' --acceptTerms')]"
+        },
+        "removeResourcesUsingPS" : {
+            "type" : "String",
+            "value": "[concat('Get-AzResource -TagName \"', variables('tagName'), '\" -TagValue \"', variables('uniqueId'), '\" | Remove-AzResource -force')]",
+            "metadata": {
+                "description": "Refer : https://docs.microsoft.com/en-us/powershell/azure/authenticate-azureps?view=azps-8.1.0"
+            }
         }
     }
 }

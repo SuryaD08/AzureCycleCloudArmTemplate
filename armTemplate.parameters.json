@@ -30,7 +30,7 @@
       "value": null
     },
     "ccScriptFilePath": {
-      "value": "https://testdevtrawe.blob.core.windows.net/test/initcc.sh?sp=r&st=2022-06-30T22:43:01Z&se=2032-07-01T06:43:01Z&sv=2021-06-08&sr=b&sig=6OXlu9A7GPg0EpT7YgRN20O98LnvJ22Np8dJuzKnHcQ%3D"
+      "value": "https://teraweazstorage.blob.core.windows.net/azstorage/initcc.sh?sp=r&st=2022-07-06T08:04:43Z&se=2040-07-06T16:04:43Z&sv=2021-06-08&sr=b&sig=62p8JWBwOFBnn1sq6%2BnjtBn7SjX6omKw%2BMHvoQApeHg%3D"
     },
     "ccScriptFileName": {
       "value": "initcc.sh"
