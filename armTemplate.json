@@ -79,9 +79,9 @@
         "subnetRef": "[concat(variables('vnetId'), '/subnets/default')]",
         "publicIpAddressName": "[concat(parameters('prefix'), '-ip')]",
         "virtualMachineName": "[concat(parameters('prefix'), '-vm')]",
-        "uniqueId" : "[newGuid()]",
+        "uniqueResourceNameBase": "[uniqueString(resourceGroup().id, parameters('location'), deployment().name)]",
         "tagName" : "dlId",
-        "tags" : { "[variables('tagName')]": "[variables('uniqueId')]"}
+        "tags" : { "[variables('tagName')]": "[variables('uniqueResourceNameBase')]"}
    },
     "resources": [
         {
@@ -330,7 +330,7 @@
         },
         "removeResourcesUsingPS" : {
             "type" : "String",
-            "value": "[concat('Get-AzResource -TagName \"', variables('tagName'), '\" -TagValue \"', variables('uniqueId'), '\" | Remove-AzResource -force')]",
+            "value": "[concat('Get-AzResource -TagName \"', variables('tagName'), '\" -TagValue \"', variables('uniqueResourceNameBase'), '\" | Remove-AzResource -force')]",
             "metadata": {
                 "description": "Refer : https://docs.microsoft.com/en-us/powershell/azure/authenticate-azureps?view=azps-8.1.0"
             }
